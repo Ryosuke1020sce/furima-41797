@@ -11,9 +11,7 @@
 | first_name         | string  | null: false |
 | family_name_kana   | string  | null: false |
 | first_name_kana    | string  | null: false |
-| birthday_year      | integer | null: false |
-| birthday_month     | integer | null: false |
-| birthday_day       | integer | null: false |
+| birthday           | date    | null: false |
 
 ## items テーブル
 
@@ -23,27 +21,26 @@
 | explain       | text       | null: false |
 | category      | string     | null: false |
 | condition     | string     | null: false |
-| delivery_fee  | string     | null: false |
-| delivery_area | string     | null: false |
-| delivery_days | string     | null: false |
-| price         | string     | null: false |
-| user_id       | references | null: false, foreign_key: true |
+| delivery_fee_id  | integer | null: false |
+| delivery_area_id | integer | null: false |
+| delivery_days_id | integer | null: false |
+| price         | integer    | null: false |
+| user          | references | null: false, foreign_key: true |
 
 ## buys テーブル
 
 | Column    | Type       | Options                        |
 | --------- | ---------- | ------------------------------ |
-| user_id   | references | null: false, foreign_key: true |
-| item_id   | references | null: false, foreign_key: true |
+| user      | references | null: false, foreign_key: true |
+| item      | references | null: false, foreign_key: true |
 
 ## deliverys テーブル
 
 | Column     | Type       | Options     |
 | ---------- | ---------- | ----------- |
-| prefecture | string     | null: false |
 | city       | string     | null: false |
 | address    | string     | null: false |
-| building   | string     | null: false |
+| building   | string     |             |
 | tel        | string     | null: false |
 | post_code  | string     | null: false |
-| buy_id     | references | null: false, foreign_key: true |
+| buy        | references | null: false, foreign_key: true |
