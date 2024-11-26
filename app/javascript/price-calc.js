@@ -7,7 +7,7 @@ function price (){
     const tax_price = document.getElementById("add-tax-price");
     const profit = document.getElementById("profit");
     
-    let p1 = parseInt(input_price / 10);
+    let p1 = Math.floor(input_price / 10);
     let p2 = input_price - p1
 
     if (!isNaN(p1)){
