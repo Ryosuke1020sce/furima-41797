@@ -1,7 +1,7 @@
-function post (){
+function price (){
 
   const form = document.getElementById("item-price")
-  form.addEventListener("keyup", () => {
+  form.addEventListener("input", () => {
 
     const input_price = form.value;
     const tax_price = document.getElementById("add-tax-price");
@@ -22,4 +22,5 @@ function post (){
   })
  };
  
- window.addEventListener('turbo:load', post);
+ window.addEventListener('turbo:load', price);
+ window.addEventListener('turbo:render', price);
