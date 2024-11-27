@@ -6,7 +6,6 @@ RSpec.describe Item, type: :model do
   end
 
   describe '商品出品' do
-
     context '商品が出品できるとき' do
       it 'すべて値が正しければ出品できる' do
         expect(@item).to be_valid
@@ -17,7 +16,7 @@ RSpec.describe Item, type: :model do
       it '商品名が空だと登録できない' do
         @item.name = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("Name can't be blank")        
+        expect(@item.errors.full_messages).to include("Name can't be blank")
       end
       it '画像の添付がないと登録できない' do
         @item.image = nil
@@ -35,7 +34,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
       it '商品の状態選択が「1」だと登録できない' do
-        @item.condition_id= 1
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
@@ -62,23 +61,23 @@ RSpec.describe Item, type: :model do
       it '販売価格が300円未満だと登録できない' do
         @item.price = 280
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
+        expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
       it '販売価格が9,999,999円超だと登録できない' do
-        @item.price = 10000000
+        @item.price = 10_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
+        expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
       it '販売価格が半角数字でないと登録できない' do
         @item.price = '１２３４'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
       it 'ユーザーの紐付けがないと登録できない' do
         @item.user = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("User must exist")
+        expect(@item.errors.full_messages).to include('User must exist')
       end
     end
-  end  
+  end
 end
