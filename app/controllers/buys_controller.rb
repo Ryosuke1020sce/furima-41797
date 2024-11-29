@@ -8,13 +8,13 @@ class BuysController < ApplicationController
 
   def create
     @buy_delivery = BuyDelivery.new(buy_params)
+    @item = Item.find(params[:item_id])
     if @buy_delivery.valid?
-      pay_item
+      pay_item(@item.price)
       @buy_delivery.save
       redirect_to root_path
     else
       gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-      @item = Item.find(params[:item_id])
       render :index, status: :unprocessable_entity
     end
   end
@@ -27,10 +27,10 @@ class BuysController < ApplicationController
       token: params[:token])
   end
 
-  def pay_item
+  def pay_item(item_price)
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
-      amount: buy_params[:price],  # 商品の値段
+      amount: item_price,          # 商品の値段
       card: buy_params[:token],    # カードトークン
       currency: 'jpy'              # 通貨の種類（日本円）
     )
