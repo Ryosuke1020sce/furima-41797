@@ -6,7 +6,7 @@ class BuysController < ApplicationController
   end
 
   def create
-    binding.pry
+    @item = Item.find(params[:item_id])
     @buy = Buy.create(buy_params)
     Delivery.create(delivery_params)
     redirect_to root_path
@@ -15,7 +15,7 @@ class BuysController < ApplicationController
   private
 
   def buy_params
-    params.merge(user_id: current_user.id,item_id: params[:id])
+    params.permit().merge(user_id: current_user.id, item_id: params[:item_id])
   end
 
   def delivery_params
