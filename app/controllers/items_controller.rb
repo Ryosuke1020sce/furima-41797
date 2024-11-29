@@ -42,7 +42,7 @@ class ItemsController < ApplicationController
     end
     redirect_to root_path
   end
-    
+
   private
 
   def set_item
