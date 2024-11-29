@@ -5,4 +5,6 @@ class Buy < ApplicationRecord
   belongs_to :user
   has_one :delivery
   
+  validates :token, presence: true
+  
 end
