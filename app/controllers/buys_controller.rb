@@ -4,6 +4,8 @@ class BuysController < ApplicationController
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @buy_delivery = BuyDelivery.new
     @item = Item.find(params[:item_id])
+    return if (current_user.id != @item.user_id) && (Buy.where(item_id: @item.id).count == 0)
+    redirect_to root_path
   end
 
   def create
