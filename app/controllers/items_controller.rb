@@ -24,7 +24,6 @@ class ItemsController < ApplicationController
 
   def edit
     return unless current_user.id != @item.user_id
-
     redirect_to root_path
   end
 
@@ -42,7 +41,7 @@ class ItemsController < ApplicationController
     end
     redirect_to root_path
   end
-    
+
   private
 
   def set_item
