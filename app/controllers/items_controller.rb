@@ -23,8 +23,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    return unless current_user.id != @item.user_id
-    redirect_to root_path
+    if (current_user.id != @item.user_id) || (Buy.where(item_id: @item.id).count != 0)
+      redirect_to root_path
+    end
   end
 
   def update
@@ -50,7 +51,7 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:name, :explain, :category_id,
-                                 :condition_id, :delivery_fee_id, :prefecture_id, :delivery_day_id,
-                                 :price, :image).merge(user_id: current_user.id)
+      :condition_id, :delivery_fee_id, :prefecture_id, :delivery_day_id,
+      :price, :image).merge(user_id: current_user.id)
   end
 end
