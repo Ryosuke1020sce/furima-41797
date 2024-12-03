@@ -45,8 +45,18 @@ RSpec.describe BuyDelivery, type: :model do
         @buy_delivery.valid?
         expect(@buy_delivery.errors.full_messages).to include("Tel can't be blank")
       end
-      it '電話番号の文字数が１０～１１桁でないと購入できない' do
-        @buy_delivery.tel = '12345678'
+      it '電話番号の桁数が９桁以下では購入できない' do
+        @buy_delivery.tel = '123456789'
+        @buy_delivery.valid?
+        expect(@buy_delivery.errors.full_messages).to include("Tel 10～11桁、「-」ハイフンなしで記入してください")
+      end
+      it '電話番号の桁数が１２桁以上では購入できない' do
+        @buy_delivery.tel = '123456789012'
+        @buy_delivery.valid?
+        expect(@buy_delivery.errors.full_messages).to include("Tel 10～11桁、「-」ハイフンなしで記入してください")
+      end
+      it '電話番号に半角数字以外が含まれると購入できない' do
+        @buy_delivery.tel = '123456790a'
         @buy_delivery.valid?
         expect(@buy_delivery.errors.full_messages).to include("Tel 10～11桁、「-」ハイフンなしで記入してください")
       end
@@ -57,6 +67,11 @@ RSpec.describe BuyDelivery, type: :model do
       end
       it '郵便番号の形式が異なると購入できない' do
         @buy_delivery.post_code = '11-111'
+        @buy_delivery.valid?
+        expect(@buy_delivery.errors.full_messages).to include("Post code 「000-0000」の形で記入してください")
+      end
+      it '郵便番号に「-（ハイフン）」を入力しないと購入できない' do
+        @buy_delivery.post_code = '1111111'
         @buy_delivery.valid?
         expect(@buy_delivery.errors.full_messages).to include("Post code 「000-0000」の形で記入してください")
       end
